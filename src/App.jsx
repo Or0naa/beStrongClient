@@ -5,7 +5,7 @@ import DataContext from './context/DataContext'
 
 export default function App() {
 
-  const [advices, setAdvices] = useState([])
+  const [advices, setAdvices] = useState(["מחר יום חדש", "זה בסדר גם לא להיות בסדר"])
   // const url = "http://localhost:6789"
   const url = "https://bestrongserver.onrender.com"
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)

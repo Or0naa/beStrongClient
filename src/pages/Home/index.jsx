@@ -32,6 +32,7 @@ export default function Index() {
 
   const { advices, setAdvices, url } = useContext(DataContext)
 
+
   useEffect(() => {
     const adviceFromSrever = async () => {
       try {
@@ -47,7 +48,7 @@ export default function Index() {
     adviceFromSrever()
   }, [reflect])
 
-  // console.log("advices", advices)
+  console.log("advices", advices)
 
 
   const getRandomAdvice = () => {
