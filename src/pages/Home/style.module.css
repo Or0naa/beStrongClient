@@ -96,3 +96,29 @@ textarea {
   font-family: 'IBM Plex Sans Hebrew', sans-serif;
 
 }
+
+@media only screen and (max-width: 600px) {
+  /* Container styles */
+  .container {
+    max-width: 100%; /* Adjusting max-width for smaller screens */
+  }
+
+  /* Footer styles */
+  .footer {
+    width: 100%; /* Adjusting width for smaller screens */
+    left: 0; /* Centering the footer on small screens */
+  }
+
+  /* AddAdvice component styles */
+
+
+  .today {
+    width: 100%; /* Making the "today" textarea full width on small screens */
+    margin-right: 0; /* Removing right margin on small screens */
+  }
+
+  .textareaContainer {
+    flex-direction: column; /* Stack items vertically on small screens */
+    gap: 0; /* Removing the gap between items on small screens */
+  }
+}
