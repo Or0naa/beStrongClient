@@ -1,0 +1,116 @@
+.cloudContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+
+.cloud:hover {
+  background-color: #6495ed;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background-color: inherit;
+  border-radius: 50%;
+
+}
+
+.cloud::before {
+  width: 80%;
+  height: 40%;
+  top: -20%;
+  left: 10%;
+}
+
+.cloud::after {
+  width: 60%;
+  height: 30%;
+  bottom: -15%;
+  left: 20%;
+}
+
+.cloud::before {
+  width: 40%;
+  height: 30%;
+  bottom: -100%;
+  z-index: -1;
+}
+
+.cloud::after {
+  width: 40%;
+  height: 30%;
+  bottom: 15%;
+  left: -25%;
+  z-index: -1;
+}
+
+.cloud::before {
+  width: 40%;
+  height: 60%;
+  top: -25%;
+  left: 30%;
+  z-index: -1;
+}
+
+.cloud::after {
+  width: 40%;
+  height: 30%;
+  top: 15%;
+  right: 60%;
+  z-index: -1;
+}
+
+.cloud::before {
+  width: 40%;
+  height: 60%;
+  bottom: -25%;
+  right: 30%;
+  z-index: -1;
+}
+
+.cloud::after {
+  width: 40%;
+  height: 30%;
+  bottom: 15%;
+  left: 60%;
+  z-index: -1;
+}
+
+.cloud {
+  padding: 10px;
+  background-color: #5ec5ee;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.3);
+  animation: moveCloud 3s infinite;
+  position: absolute;
+  transition: transform 0.3s ease, opacity 0.3s ease, top 3s ease, left 3s ease;
+}
+
+.cloud:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* תוספות אחרונות לקובץ */
+@keyframes moveCloud {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(10px, 10px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.cloud:hover {
+  animation: moveCloud 3s infinite;
+}

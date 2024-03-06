@@ -1,0 +1,31 @@
+/* style.module.css */
+
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr; /* יצירת עמודה אחת ברוחב מלא */
+    grid-gap: 10px; /* רווח בין הלינקים */
+  }
+  
+  .active {
+    color: #0b578a; /* גוון כחול כהה */
+    font-weight: bold;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #0b578a; /* גוון טקסט כחול */
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #0b578a; /* גוון כחול בהבהבה */
+  }
+  
+  .contact{
+    cursor: pointer;
+    
+  }
+
+  .contact:hover {
+    color: #0b578a; /* גוון כחול בהבהבה */
+  }

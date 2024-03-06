@@ -1,0 +1,21 @@
+.container {
+    font-family: 'IBM Plex Sans Hebrew', sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .explanation{
+    width: fit-content;
+    height: fit-content;
+    border: #090448 2px solid;
+    background-color: #5852aeac;
+    padding: 10px;
+    color: #a69fff;
+  }

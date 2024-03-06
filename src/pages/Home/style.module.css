@@ -1,0 +1,98 @@
+/* style.module.css */
+
+/* Container styles */
+.container {
+  font-family: 'IBM Plex Sans Hebrew', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Form styles */
+form {
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+
+
+/* Result styles */
+.resultcontainer {
+  margin-top: 20px;
+}
+
+.resulttext {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+
+
+/* Footer styles */
+.footer {
+  font-size: 14px;
+  width: 70%;
+  position:fixed;
+  bottom: 20px;
+  left: calc(50% - 35%);
+  text-align: center;
+}
+
+/* AddAdvice component styles */
+.addadvicecontainer {
+  margin-top: 20px;
+}
+.today {
+  min-width: 200px;
+  width: fit-content;
+  padding: 10px;
+  height: auto;
+  min-height: 100px; /* גובה מינימלי גבוה יותר */
+  resize: none;
+  border: 2px solid #20168f; /* שימוש ב-solid ולא ב-border-color */
+  border-radius: 8px; /* פינות מעוגלות */
+  font-size: 16px; /* גודל פונט */
+  line-height: 1.4; /* פרופורציית קווים */
+  margin-right: 10px; /* הזזה לימין מעט מתיבת הטקסט */
+}
+
+.textareaContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* מרכוז את התיבה המרובעת והכפתור אנכית */
+  width: 100%;
+  gap: 10px;
+}
+
+.buttonToday {
+  background-color: #20168f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 12px 20px; /* גדילת מרווח הכפתור */
+  border-radius: 8px; /* פינות מעוגלות */
+  font-size: 16px; /* גודל פונט תואם לתיבת הטקסט */
+}
+
+.explanation{
+  width: fit-content;
+  height: fit-content;
+  border: #090448 2px solid;
+  background-color: #5852aeac;
+  padding: 10px;
+  color: #a69fff;
+  font-family: 'IBM Plex Sans Hebrew', sans-serif;
+
+}

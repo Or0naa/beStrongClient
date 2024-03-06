@@ -1,0 +1,29 @@
+/* style.module.css */
+
+/* סגנון כללי לכפתורים */
+button {
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50; /* רקע ירוק */
+    color: white;
+    font-size: 14px;
+  }
+  
+  /* סגנון לכפתור מחיקה */
+  button.delete {
+    background-color: #ff3333; /* רקע אדום */
+  }
+  
+  /* סגנון לכפתור "לעשות שוב?" כאשר המשימה בוצעה */
+  button.done {
+    background-color: #6666ff; /* רקע כחול */
+  }
+  
+  /* סגנון לטקסט עם קו חוצה */
+  span.done {
+    text-decoration: line-through;
+  }
+  
