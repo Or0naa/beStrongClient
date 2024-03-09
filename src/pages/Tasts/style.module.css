@@ -27,3 +27,17 @@ button {
     text-decoration: line-through;
   }
   
+  @media (max-width: 600px) {
+    /* סגנון כללי לכפתורים במסכים קטנים */
+    button {
+        padding: 4px 8px;
+        margin: 2px;
+        font-size: 12px;
+    }
+  
+    /* סגנון לכפתור "לעשות שוב?" כאשר המשימה בוצעה במסכים קטנים */
+    button.done {
+        background-color: #6666ff; /* רקע כחול */
+        font-size: 12px;
+    }
+}
