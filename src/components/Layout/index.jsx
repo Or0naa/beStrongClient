@@ -3,10 +3,12 @@ import styles from './style.module.css'
 import AddAdvice from '../../pages/AddAdvice'
 import Home from '../../pages/Home'
 import Header from '../../pages/Header'
-import Tasts from '../../pages/Tasts'
+import Tasks from '../../pages/Tasks'
 import Dreams from '../../pages/Dreams'
 import Login from '../../pages/Login'
 import AdminPage from '../../pages/AdminPage'
+import Lists from '../../pages/Lists'
+import OneList from '../../pages/OneList'
 
 
 export default function Layout() {
@@ -18,11 +20,13 @@ export default function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="/addAdvice" element={<AddAdvice />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/tasks" element={<Tasts />} />
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/dreams" element={<Dreams />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminPage />} />
-
+          <Route path="*" element={<h1>404</h1>} />
+          <Route path='/categories' element={<Lists />} />
+          <Route path='/category/:category' element={<OneList />} />
         </Routes>
       </div>
     </div>

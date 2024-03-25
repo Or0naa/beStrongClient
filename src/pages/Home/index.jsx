@@ -11,26 +11,8 @@ export default function Index() {
 
   const [support, setSupport] = useState("מחר יום חדש");
 
-  const adviceList = [
-    "תזכרי שגם אחרי הסערה יצא הקשת והשמש זורחת מחדש.",
-    "תמיד יש משהו טוב שמחכה לך מתחת לפני.",
-    "בכל רגע נתקע, תזכרי לחשוב על הדברים הטובים שאת מזהה בחיים.",
-    "כל יום הוא הזדמנות חדשה להיות דמויית סוני וויב!",
-    "תמיד יש יום טוב לחפש בו צחוק.",
-    "לפעמים הדרך הארוכה יותר היא הדרך הקצרה ביותר.",
-    "אל תשכחי לשים כובע כשאת הולכת לפגישה עם המכשפה.",
-    "זכרי, גם אם את נתקעת בים של קרקסים, יש לך יכולת לשחות.",
-    "כשאת מסבוכה, תזכרי שאת עדיין מגניבה!",
-    "לא חשוב איך התחילו העכברים, חשוב איך הסיפור יסתיים.",
-    "בכל פעם שאת נופלת, זכרי שיש לך יכולת לקום מחדש.",
-    "אל תתייאשי מהאתגרים, זכרי שזה הכדורגל של החיים.",
-    "לא כל מי שנופל הוא פסל, זה רק צורך להתמקם מחדש.",
-    "תמיד יש מקום לפתרונות יצירתיים, את יכולה להיות הראשונה שתמצא אותם.",
-    "גם אם זה נראה קטן, כל מעשה טוב משנה את העולם.",
-    "בעולם של משפחת דיסני, את יכולה להיות היהודי שלך.",
-  ];
-
   const { advices, setAdvices, url } = useContext(DataContext)
+  const [webLoading, setWebLoading] = useState(false)
 
 
   useEffect(() => {
@@ -40,6 +22,7 @@ export default function Index() {
         // console.log(res.data)
         const arrAdvice = res.data.map(el => el.advice)
         setAdvices(arrAdvice)
+        setWebLoading(true)
       }
       catch (err) {
         console.log(err)
@@ -48,7 +31,7 @@ export default function Index() {
     adviceFromSrever()
   }, [reflect])
 
-  console.log("advices", advices)
+  // console.log("advices", advices)
 
 
   const getRandomAdvice = () => {
@@ -101,7 +84,7 @@ export default function Index() {
       }
         <div className={styles.footer}>
           <p >רוצה גם להוסיף עצות טובות למאגר?</p>
-          <AddAdvice className={styles.addadvicecontainer} />
+         {webLoading? <AddAdvice className={styles.addadvicecontainer} />:"רגע, צריך לחכות שהאתר ייטען"}
         </div>
     </div>
   );

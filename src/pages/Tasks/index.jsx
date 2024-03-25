@@ -4,11 +4,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from './style.module.css';
 import axios from 'axios';
 import DataContext from '../../context/DataContext';
+import Lists from '../Lists';
 
 export default function Tasks() {
-  const { url, user } = useContext(DataContext)
+  const { url, user, todo, setTodo, viewList, setViewList } = useContext(DataContext)
 
   const [congratulations, setCongratulations] = useState("מעולההה");
+
   const Well_Done = [
     "אלופהההה",
     "מה אני אגיד?? את מצוינת",
@@ -40,7 +42,6 @@ export default function Tasks() {
 
   const goodLack = () => toast("בהצלחה!!!!")
 
-  const [todo, setTodo] = useState([{ todo: "לחכות שהאתר ייטען" }])
 
   useEffect(() => {
     // Function to fetch dreams data from the server
@@ -48,7 +49,11 @@ export default function Tasks() {
       try {
         const response = await axios.get(`${url}/todo/${user._id}`);
         console.log(response.data)
-        setTodo(response.data);
+
+        setTodo(response.data.sort((a, b) => {
+          if (a.isDone === b.isDone) return 0;
+          return a.isDone ? 1 : -1;
+        }))
       } catch (error) {
         console.error(error);
       }
@@ -89,6 +94,7 @@ export default function Tasks() {
     e.preventDefault();
     const newTask = {
       todo: e.target.todo.value,
+      category: e.target.category.value,
       user: user._id
     }
     try {
@@ -108,18 +114,26 @@ export default function Tasks() {
       <div>
         <form onSubmit={(e) => handleAddTodo(e)}>
           <input type="text" name='todo' placeholder='משימה חדשה' />
+          <input type='text' name='category' placeholder='קטגוריה (אופציונלי)' />
           <button type='submit' className={styles.button}>הוספה</button>
         </form>
+        <br />
+        <div onClick={()=>{setViewList(!viewList)}}>{!viewList?"לחיצה לתצוגה לפי קטגוריות": "לחיצה לתצוגת כל המשימות"}</div>
       </div>
-      {todo.map((t) => (
+      {viewList ? <Lists /> :
         <div>
-          <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>מחיקה</button>
-          <span className={t.isDone ? `${styles.done}` : ''}>
-            {t.todo}
-            <button onClick={() => handleIsDone(t)} className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}>{t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}</button>
-          </span>
-        </div>
-      ))}
+          {todo.map((t) => (
+            <div>
+              <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>מחיקה</button>
+              <span className={t.isDone ? `${styles.done}` : ''}>
+                {t.todo}
+                <button onClick={() => handleIsDone(t)} className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}>{t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}</button>
+              </span>
+            </div>
+          ))}
+          <br />
+        </div>}
+
     </div>
   )
 }
