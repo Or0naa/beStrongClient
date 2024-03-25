@@ -11,24 +11,34 @@ export default function Login() {
   const nav = useNavigate()
   const [explanation, setExplanation] = useState(true);
   const [newUser, setNewUser] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await axios.post(`${url}/users/login`, {
         email: e.target.email.value,
         password: e.target.password.value
       });
-      // console.log(response.data);
+      console.log(response);
+      setLoading(false);
+      if (!response.data.includes('user')) {
+        alert('שם משתמש או סיסמה לא נמצאו');
+        return;
+      }
       setUser(response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
       nav('/');
     } catch (error) {
       console.error(error);
+      setLoading(false);
+      alert('שם משתמש או סיסמה לא נמצאו');
     }
   };
 
   const handleRegister = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       await axios.post(`${url}/users/register`, {
@@ -36,6 +46,7 @@ export default function Login() {
         email: e.target.email.value,
         password: e.target.password.value
       });
+      setLoading(false);
       setNewUser(false);
     } catch (error) {
       console.error(error);
@@ -82,6 +93,7 @@ export default function Login() {
           <button type="submit">התחבר</button>
         </form>
       )}
+      {loading ? <img style={{width:250}} src='https://media3.giphy.com/media/xTkcEQACH24SMPxIQg/giphy.webp?cid=ecf05e47cp6hc7mu338j5vhfebqqvb1pgmmz98qa5hzijrd6&ep=v1_gifs_search&rid=giphy.webp&ct=g'/> : null}
 
       <button onClick={() => setNewUser(!newUser)}>
         {newUser ? 'כבר נרשמתי' : 'להרשמה'}
