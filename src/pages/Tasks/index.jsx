@@ -48,7 +48,7 @@ export default function Tasks() {
     const getTodos = async () => {
       try {
         const response = await axios.get(`${url}/todo/${user._id}`);
-        console.log(response.data)
+       
 
         setTodo(response.data.sort((a, b) => {
           if (a.isDone === b.isDone) return 0;
