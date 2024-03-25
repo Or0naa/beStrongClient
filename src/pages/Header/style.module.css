@@ -4,6 +4,7 @@
     display: grid;
     grid-template-columns: 1fr; /* יצירת עמודה אחת ברוחב מלא */
     grid-gap: 10px; /* רווח בין הלינקים */
+    position: absolute;
   }
   
   .active {

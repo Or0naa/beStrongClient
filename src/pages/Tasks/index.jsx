@@ -48,7 +48,7 @@ export default function Tasks() {
     const getTodos = async () => {
       try {
         const response = await axios.get(`${url}/todo/${user._id}`);
-       
+
 
         setTodo(response.data.sort((a, b) => {
           if (a.isDone === b.isDone) return 0;
@@ -89,7 +89,6 @@ export default function Tasks() {
     }
   };
 
-
   const handleAddTodo = async (e) => {
     e.preventDefault();
     const newTask = {
@@ -108,6 +107,62 @@ export default function Tasks() {
 
   }
 
+  const handleDoneAll = () => {
+    todo.forEach(async (t) => {
+      try {
+        if (!t.isDone) {
+          wellDone()
+        }
+        const updatedTask = {
+          isDone: true,
+          user: user._id
+        };
+        await axios.put(`${url}/todo/${t._id}`, updatedTask);
+        setTodo((prev) =>
+          prev.map((task) => (task._id === t._id ? { ...task, isDone: true } : task))
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    })
+  }
+
+  const handleDeleteAll = async () => {
+    try {
+      await Promise.all(todo.map(async (t) => {
+        await axios.delete(`${url}/todo/${t._id}`);
+      }));
+      setTodo([]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const [editingTask, setEditingTask] = useState(null);
+  const [editedText, setEditedText] = useState('');
+
+  const handleEditClick = (task) => {
+    setEditingTask(task);
+    setEditedText(task.todo);
+  };
+
+  const handleSaveEdit = async (task) => {
+    try {
+      const updatedTask = {
+        ...task,
+        todo: editedText,
+      };
+      await axios.put(`${url}/todo/${task._id}`, updatedTask);
+      setTodo((prev) =>
+        prev.map((t) => (t._id === task._id ? updatedTask : t))
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   return (
     <div>
       <p>משימות להיום:</p>
@@ -118,21 +173,48 @@ export default function Tasks() {
           <button type='submit' className={styles.button}>הוספה</button>
         </form>
         <br />
-        <div onClick={()=>{setViewList(!viewList)}}>{!viewList?"לחיצה לתצוגה לפי קטגוריות": "לחיצה לתצוגת כל המשימות"}</div>
+        <div onClick={() => { setViewList(!viewList) }}>{!viewList ? "לחיצה לתצוגה לפי קטגוריות" : "לחיצה לתצוגת כל המשימות"}</div>
       </div>
       {viewList ? <Lists /> :
         <div>
           {todo.map((t) => (
             <div>
-              <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>מחיקה</button>
-              <span className={t.isDone ? `${styles.done}` : ''}>
-                {t.todo}
-                <button onClick={() => handleIsDone(t)} className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}>{t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}</button>
-              </span>
+              <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>🚮מחיקה</button>
+              {/* <button className={`${styles.button} ${styles.share}`}>🧑‍🤝‍🧑</button> */}
+              {editingTask === t ? (
+                <input
+                  type="text"
+                  value={editedText}
+                  onChange={(e) => setEditedText(e.target.value)}
+                  onBlur={() => {
+                    // Save edited text and reset editing state
+                    handleSaveEdit(t);
+                    setEditingTask(null);
+                    setEditedText('');
+                  }}
+                />
+              ) : (
+                <span
+                  className={t.isDone ? `${styles.done}` : ''}
+                  onClick={() => handleEditClick(t)}
+                >
+                  {t.todo}
+                  <button
+                    onClick={() => handleIsDone(t)}
+                    className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}
+                  >
+                    {t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}
+                  </button>
+                </span>
+              )}
             </div>
           ))}
           <br />
         </div>}
+      <br />
+      <button onClick={handleDoneAll}>סיימתי הכל</button>
+      <button onClick={handleDeleteAll}>למחוק הכל</button>
+      {/* <button>לשתף הכל</button> */}
 
     </div>
   )

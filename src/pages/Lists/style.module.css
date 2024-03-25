@@ -1,0 +1,47 @@
+/* style.module.css */
+
+.category_container {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.category_box {
+    border: 1px solid #000;
+    border-radius: 50%; /* שימוש בעיגול */
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: #7650bb 60px, 20px 5px 15px;
+}
+
+.category_box:hover {
+    /* transform: translateY(-5px) scale(1.1); קינון הגודל עם הקפיצה */
+    /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); */
+    animation-duration: 10ms;
+    animation-name: hover-scale;
+    animation-fill-mode: forwards;
+    background-color: tint(#fff, 80%);
+
+
+
+}
+@keyframes hover-scale {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+.category_title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    
+}
+
+

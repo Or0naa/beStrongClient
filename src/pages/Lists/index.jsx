@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import DataContext from '../../context/DataContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import styles from './style.module.css'
+
 
 
 
@@ -57,14 +59,30 @@ export default function Lists() {
     setViewList(false)
   }
 
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   return (
-    <div>
-      {categories.map((i) => (
-        <div key={i} onClick={() => handleGetoneCat(i)}>
-          {i}
+    <div className={styles.category_container}>
+      {categories.map((category) => (
+        <div
+          key={category}
+          className={styles.category_box}
+          style={{ backgroundColor: getRandomColor(), hover: { cursor: 'pointer', opacity: 0.7, transition: '0.3s', backgroundColor: getRandomColor() } }}
+          onClick={() => handleGetoneCat(category)}
+        >
+          <span className={styles.category_title}>{category}</span>
         </div>
       ))}
-      <div onClick={handleGetAll}>all tasks</div>
+      <div className={styles.category_box} style={{ backgroundColor: getRandomColor() }} onClick={handleGetAll}>
+        <span className={styles.category_title}>All Tasks</span>
+      </div>
     </div>
   )
 }
