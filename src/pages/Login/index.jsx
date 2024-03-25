@@ -21,9 +21,10 @@ export default function Login() {
         email: e.target.email.value,
         password: e.target.password.value
       });
-      console.log(response);
+      console.log(response.data._id);
       setLoading(false);
-      if (!response.data.includes('user')) {
+      
+      if (!response.data._id) {
         alert('שם משתמש או סיסמה לא נמצאו');
         return;
       }
