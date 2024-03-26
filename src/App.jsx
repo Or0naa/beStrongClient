@@ -11,12 +11,13 @@ export default function App() {
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
   const [todo, setTodo] = useState([{ todo: "לחכות שהאתר ייטען" }])
   const [viewList, setViewList] = useState(localStorage.viewList? localStorage.viewList: false);
+  const [categoryName, setCategoryName] = useState("");
 
   
 
   return (
     <div>
-      <DataContext.Provider value={{ advices, setAdvices, url, user, setUser, todo, setTodo, viewList, setViewList }}>
+      <DataContext.Provider value={{ advices, setAdvices, url, user, setUser, todo, setTodo, viewList, setViewList, categoryName, setCategoryName }}>
         <Layout />
         <ToastContainer />
       </DataContext.Provider>

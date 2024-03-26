@@ -7,7 +7,7 @@ import DataContext from '../../context/DataContext';
 import Lists from '../Lists';
 
 export default function Tasks() {
-  const { url, user, todo, setTodo, viewList, setViewList } = useContext(DataContext)
+  const { url, user, todo, setTodo, viewList, setViewList, categoryName } = useContext(DataContext)
 
   const [congratulations, setCongratulations] = useState("מעולההה");
 
@@ -172,7 +172,7 @@ export default function Tasks() {
             todo: t._id,
             user: user._id
           })
-          console.log({res})
+          console.log({ res })
           t.sharedWith = []
         } catch (err) {
           console.error(err)
@@ -230,7 +230,9 @@ export default function Tasks() {
 
   return (
     <div>
-      <p>משימות להיום:</p>
+      <p>משימות להיום:
+      <button style={{backgroundColor:'inherit', fontSize:"20px"}} onClick={handleViewList} title={!viewList ? "לחיצה לתצוגה לפי קטגוריות" : "לחיצה לתצוגת משימות"}>{viewList?"📃":"🧮"}</button>
+</p>
       <div>
         <form onSubmit={(e) => handleAddTodo(e)}>
           <input type="text" name='todo' placeholder='משימה חדשה' />
@@ -238,14 +240,14 @@ export default function Tasks() {
           <button type='submit' className={styles.button}>הוספה</button>
         </form>
         <br />
-        <div onClick={handleViewList}>{!viewList ? "לחיצה לתצוגה לפי קטגוריות" : "לחיצה לתצוגת כל המשימות"}</div>
       </div>
       {viewList ? <Lists /> :
         <div>
+          <h3>שם הרשימה: {categoryName}</h3>
           {todo.map((t) => (
             <div>
-              <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>🚮מחיקה</button>
-              <button onClick={() => handleShare(t)} className={`${styles.button} ${styles.share}`}>{t.sharedWith && t.sharedWith.length > 0 ? "🧑‍🤝‍🧑" : "🧍‍♀️"}</button>
+              <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`} title="מחיקה">🚮</button>
+              <button onClick={() => handleShare(t)} className={`${styles.button} ${styles.share}`} title="שיתוף">{t.sharedWith && t.sharedWith.length > 0 ? "🧑‍🤝‍🧑" : "🧍‍♀️"}</button>
               {editingTask === t ? (
                 <input
                   type="text"
@@ -262,6 +264,7 @@ export default function Tasks() {
                 <span
                   className={t.isDone ? `${styles.done}` : ''}
                   onClick={() => handleEditClick(t)}
+                  title="לעריכה לחצי"
                 >
                   {t.todo}
                 </span>
@@ -269,6 +272,7 @@ export default function Tasks() {
               <button
                 onClick={() => handleIsDone(t)}
                 className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}
+                title="בוצע"
               >
                 {t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}
               </button>

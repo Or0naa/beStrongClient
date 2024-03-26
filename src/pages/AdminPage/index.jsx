@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './style.module.css';
 import DataContext from '../../context/DataContext';
+import DecisionHelper from '../DecisionHelper';
 
 const AdminPage = () => {
   const [advicesToCheck, setAdvicesToCheck] = useState([]);
@@ -11,7 +12,7 @@ const AdminPage = () => {
     const fetchAdvices = async () => {
       try {
         const res = await axios.get(`${url}/advice/check`);
-        console.log("res", res);
+        // console.log("res", res);
         setAdvicesToCheck(res.data);
       } catch (err) {
         console.error(err);
@@ -49,6 +50,8 @@ const AdminPage = () => {
         </div>
       ))
     : "אין עצות חדשות"}
+
+    <DecisionHelper/>
     </div>
   );
 };

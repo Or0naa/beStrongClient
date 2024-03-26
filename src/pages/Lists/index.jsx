@@ -11,7 +11,7 @@ export default function Lists() {
   const [categories, setCategories] = useState([])
   const [cat, setCat] = useState("") // הוספת סטאט נוסף עבור הקטגוריה הנבחרת
 
-  const { url, user, viewList, setViewList, todo, setTodo } = useContext(DataContext)
+  const { url, user, viewList, setViewList, todo, setTodo, setCategoryName } = useContext(DataContext)
   const nav = useNavigate()
 
   useEffect(() => {
@@ -30,7 +30,8 @@ export default function Lists() {
   const handleGetoneCat = (i) => {
     setCat(i); // עדכון ערך הקטגוריה בעת בחירה
     setViewList(false);
-
+    localStorage.viewList = false;
+    setCategoryName(i)
     handleGetList(i)
   };
 
@@ -57,6 +58,7 @@ export default function Lists() {
       console.error(error);
     }
     setViewList(false)
+    setCategoryName("כל המשימות")
   }
 
   function getRandomColor() {

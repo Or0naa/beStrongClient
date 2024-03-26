@@ -21,7 +21,7 @@ export default function Login() {
         email: e.target.email.value,
         password: e.target.password.value
       });
-      console.log(response.data._id);
+      //console.log(response.data._id);
       setLoading(false);
       
       if (!response.data._id) {

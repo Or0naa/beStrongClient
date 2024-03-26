@@ -54,7 +54,7 @@ export default function Dreams() {
   }, [dreams]);
 
 
-  console.log("dreams", dreams);
+  //console.log("dreams", dreams);
 
   const handleDreamClick = async (id) => {
     const dreamDone = window.confirm("הגשמת את החלום?");
