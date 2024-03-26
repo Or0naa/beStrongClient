@@ -245,7 +245,7 @@ export default function Tasks() {
           {todo.map((t) => (
             <div>
               <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>🚮מחיקה</button>
-              <button onClick={() => handleShare(t)} className={`${styles.button} ${styles.share}`}>{t.sharedWith.length > 0 ? "🧑‍🤝‍🧑" : "🧍‍♀️"}</button>
+              <button onClick={() => handleShare(t)} className={`${styles.button} ${styles.share}`}>{t.sharedWith && t.sharedWith.length > 0 ? "🧑‍🤝‍🧑" : "🧍‍♀️"}</button>
               {editingTask === t ? (
                 <input
                   type="text"
