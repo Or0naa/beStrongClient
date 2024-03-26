@@ -4,6 +4,7 @@ import styles from './style.module.css';
 import DataContext from '../../context/DataContext';
 import axios from 'axios';
 import { useSubmit } from 'react-router-dom';
+import Compliment from '../Compliment';
 
 export default function Index() {
   const [today, setToday] = useState("");
@@ -53,6 +54,7 @@ export default function Index() {
   };
 
   const [explanation, setExplanation] = useState(true);
+  const [wannaCompliment, setWannaCompliment] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -82,6 +84,9 @@ export default function Index() {
        
       ) : null
       }
+      <button onClick={()=> setWannaCompliment(!wannaCompliment)}>{!wannaCompliment?"תשמח אותי מחמאה?": "תודה, הספיק לי"}</button>
+      {wannaCompliment ? 
+        <Compliment /> : null}
         <div className={styles.footer}>
           <p >רוצה גם להוסיף עצות טובות למאגר?</p>
          {webLoading? <AddAdvice className={styles.addadvicecontainer} />:"רגע, צריך לחכות שהאתר ייטען"}

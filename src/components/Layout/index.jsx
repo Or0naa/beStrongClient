@@ -8,7 +8,7 @@ import Dreams from '../../pages/Dreams'
 import Login from '../../pages/Login'
 import AdminPage from '../../pages/AdminPage'
 import Lists from '../../pages/Lists'
-import OneList from '../../pages/OneList'
+import Compliment from '../../pages/Compliment'
 
 
 export default function Layout() {
@@ -26,7 +26,7 @@ export default function Layout() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<h1>404</h1>} />
           <Route path='/categories' element={<Lists />} />
-          <Route path='/category/:category' element={<OneList />} />
+          <Route path='/compliment' element={<Compliment />} />
         </Routes>
       </div>
     </div>
