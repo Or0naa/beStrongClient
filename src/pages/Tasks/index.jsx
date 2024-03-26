@@ -41,8 +41,6 @@ export default function Tasks() {
   };
 
   const goodLack = () => toast("בהצלחה!!!!")
-
-
   useEffect(() => {
     // Function to fetch dreams data from the server
     const getTodos = async () => {
@@ -62,6 +60,7 @@ export default function Tasks() {
   }, [])
 
   const handleIsDone = async (t) => {
+    console.log(t)
     try {
       if (!t.isDone) {
         wellDone()
@@ -78,8 +77,6 @@ export default function Tasks() {
       console.error(error);
     }
   };
-
-
   const handleDelete = async (t) => {
     try {
       await axios.delete(`${url}/todo/${t._id}`);
@@ -161,6 +158,74 @@ export default function Tasks() {
     }
   };
 
+  const handleViewList = () => {
+    setViewList(!viewList)
+    localStorage.viewList = viewList
+  }
+
+  const handleShare = async (t) => {
+    if (t.sharedWith.length > 0) {
+      const unshare = confirm("לבטל את השיתוף?")
+      if (unshare) {
+        try {
+          const res = await axios.post(`${url}/todo/unshare`, {
+            todo: t._id,
+            user: user._id
+          })
+          console.log({res})
+          t.sharedWith = []
+        } catch (err) {
+          console.error(err)
+        }
+
+        return
+      }
+    }
+
+
+    const userToShare = prompt("Please enter the email of the user you want to share with:");
+    if (!userToShare || !userToShare.includes("@") || !userToShare.includes(".")) {
+      toast.error("Please enter a valid email");
+      return
+    }
+    const sharedTask = {
+      task: t,
+      sharedWith: userToShare
+    }
+    try {
+      const response = await axios.post(`${url}/todo/share`, { sharedTask });
+      console.log(response.data)
+      if (response.data._id) {
+        toast.success(`משימה נשלחה בהצלחה ל- ${userToShare}!`);
+      }
+      else {
+        toast.error("לא הצלחת 😕 נסי שוב")
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+
+  const handleShareAll = () => {
+    const userToShare = prompt("Please enter the email of the user you want to share with:");
+    if (!userToShare || !userToShare.includes("@") || !userToShare.includes(".")) {
+      toast.error("Please enter a valid email");
+      return
+    }
+    todo.forEach(async (t) => {
+      const sharedTask = {
+        task: t,
+        sharedWith: userToShare
+      }
+      try {
+        const response = await axios.post(`${url}/todo/share`, { sharedTask });
+        toast.success(`משימה נשלחה בהצלחה ל- ${user.name}!`);
+      } catch (error) {
+        console.error(error);
+      }
+    })
+  }
 
 
   return (
@@ -173,14 +238,14 @@ export default function Tasks() {
           <button type='submit' className={styles.button}>הוספה</button>
         </form>
         <br />
-        <div onClick={() => { setViewList(!viewList) }}>{!viewList ? "לחיצה לתצוגה לפי קטגוריות" : "לחיצה לתצוגת כל המשימות"}</div>
+        <div onClick={handleViewList}>{!viewList ? "לחיצה לתצוגה לפי קטגוריות" : "לחיצה לתצוגת כל המשימות"}</div>
       </div>
       {viewList ? <Lists /> :
         <div>
           {todo.map((t) => (
             <div>
               <button onClick={() => handleDelete(t)} className={`${styles.button} ${styles.delete}`}>🚮מחיקה</button>
-              {/* <button className={`${styles.button} ${styles.share}`}>🧑‍🤝‍🧑</button> */}
+              <button onClick={() => handleShare(t)} className={`${styles.button} ${styles.share}`}>{t.sharedWith.length > 0 ? "🧑‍🤝‍🧑" : "🧍‍♀️"}</button>
               {editingTask === t ? (
                 <input
                   type="text"
@@ -199,22 +264,24 @@ export default function Tasks() {
                   onClick={() => handleEditClick(t)}
                 >
                   {t.todo}
-                  <button
-                    onClick={() => handleIsDone(t)}
-                    className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}
-                  >
-                    {t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}
-                  </button>
                 </span>
               )}
+              <button
+                onClick={() => handleIsDone(t)}
+                className={`${styles.button} ${t.isDone ? styles.done : styles.doneButton}`}
+              >
+                {t.isDone ? "לעשות שוב?" : "סיימתי!!🤩"}
+              </button>
+
             </div>
+
           ))}
           <br />
         </div>}
       <br />
       <button onClick={handleDoneAll}>סיימתי הכל</button>
       <button onClick={handleDeleteAll}>למחוק הכל</button>
-      {/* <button>לשתף הכל</button> */}
+      <button onClick={handleShareAll}>לשתף הכל</button>
 
     </div>
   )

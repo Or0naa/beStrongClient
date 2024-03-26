@@ -10,7 +10,7 @@ export default function App() {
   const url = "https://bestrongserver.onrender.com"
   const [user, setUser] = useState(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null)
   const [todo, setTodo] = useState([{ todo: "לחכות שהאתר ייטען" }])
-  const [viewList, setViewList] = useState(false);
+  const [viewList, setViewList] = useState(localStorage.viewList? localStorage.viewList: false);
 
   
 
